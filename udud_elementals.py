@@ -10,7 +10,6 @@ spinTensor = lambda name, s0: SpinMatrix(name, [sIdx(s0), sIdx(s0+1), sIdx(s0+2)
 
 nextSpinIdx = 0
 nextColorIdx= 0
-nextGammaIdx = 0
 
 def quark(anti, f, t, x):
     global nextSpinIdx, nextColorIdx
@@ -19,11 +18,9 @@ def quark(anti, f, t, x):
     nextColorIdx+=1
     return q
 
-def baryonSource(coef, flavors, x):
-    global nextGammaIdx
+def baryonSource(coef, flavors, x, gammaName):
     eTensor = epsilonTensor(nextColorIdx)
-    sTensor = spinTensor('\\Gamma^{'+str(nextGammaIdx)+'}', nextSpinIdx)
-    nextGammaIdx+=1
+    sTensor = spinTensor(gammaName, nextSpinIdx)
 
     q0 = quark(True, flavors[0], 't_i', x)
     q1 = quark(True, flavors[1], 't_i', x)
@@ -35,11 +32,9 @@ def baryonSource(coef, flavors, x):
         [q0,q1,q2,q3]
     )
 
-def baryonSink(coef, flavors, x):
-    global nextGammaIdx
+def baryonSink(coef, flavors, x, gammaName):
     eTensor = epsilonTensor(nextColorIdx)
-    sTensor = spinTensor('\\Gamma^{'+str(nextGammaIdx)+'}', nextSpinIdx)
-    nextGammaIdx+=1
+    sTensor = spinTensor(gammaName, nextSpinIdx)
 
     q0 = quark(False, flavors[0], 't_f', x)
     q1 = quark(False, flavors[1], 't_f', x)
@@ -52,11 +47,11 @@ def baryonSink(coef, flavors, x):
     )
 
 
-def BBsource(coef, f0, f1, x0, x1):
-    global nextGammaIdx
+def BBsource(coef, f0, f1, x0, x1, g1, g2):
+
     eTensor1 = epsilonTensor(nextColorIdx)
-    sTensor1 = spinTensor('\\Gamma^{'+str(nextGammaIdx)+'}', nextSpinIdx)
-    nextGammaIdx+=1
+    sTensor1 = spinTensor(g1, nextSpinIdx)
+
 
     q0 = quark(True, f0[0], 't_i', x0)
     q1 = quark(True, f0[1], 't_i', x0)
@@ -64,8 +59,7 @@ def BBsource(coef, f0, f1, x0, x1):
     q3 = quark(True, f0[3], 't_i', x0)
 
     eTensor2 = epsilonTensor(nextColorIdx)
-    sTensor2 = spinTensor('\\Gamma^{'+str(nextGammaIdx)+'}', nextSpinIdx)
-    nextGammaIdx+=1
+    sTensor2 = spinTensor( g2, nextSpinIdx)
 
     q4 = quark(True, f1[0], 't_i', x1)
     q5 = quark(True, f1[1], 't_i', x1)
@@ -77,11 +71,11 @@ def BBsource(coef, f0, f1, x0, x1):
         [q0,q1,q2,q3,q4,q5,q6,q7]
     )
 
-def BBsink(coef, f0, f1, x0, x1):
-    global nextGammaIdx
+def BBsink(coef, f0, f1, x0, x1, g1, g2):
+
     eTensor1 = epsilonTensor(nextColorIdx)
-    sTensor1 = spinTensor('\\Gamma^{'+str(nextGammaIdx)+'}', nextSpinIdx)
-    nextGammaIdx+=1
+    sTensor1 = spinTensor(g1, nextSpinIdx)
+
 
     q0 = quark(False, f0[0], 't_f', x0)
     q1 = quark(False, f0[1], 't_f', x0)
@@ -89,7 +83,7 @@ def BBsink(coef, f0, f1, x0, x1):
     q3 = quark(False, f0[3], 't_f', x0)
 
     eTensor2 = epsilonTensor(nextColorIdx)
-    sTensor2 = spinTensor('\\Gamma^{'+str(nextGammaIdx)+'}', nextSpinIdx)
+    sTensor2 = spinTensor( g2, nextSpinIdx)
     nextGammaIdx+=1
 
     q4 = quark(False, f1[0], 't_f', x1)

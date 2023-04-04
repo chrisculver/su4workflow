@@ -1,5 +1,5 @@
 import os
-from utilities import diagram_as_graph
+from src.utilities import diagram_as_graph
 
 def cppArrayPrint(lst):
     return str(lst).replace('[','{').replace(']','}')

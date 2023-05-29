@@ -1,6 +1,29 @@
 import os
 from src.utilities import diagram_as_graph
 
+
+def create_input_file(ndiags, gammas):
+    print("TODO: Need to handle momenta and baryon flavor!")
+    s="cfg=__CFG__\n"
+    s+="PerambulatorFileBase=/p/gpfs1/culver5/su4_spectroscopy/4flavor___FERMION__/__VOL__/__BETA__/evecs_perams_dbl/cfg___CFG__/perambulators___KAPPA___LapH___MAX_NVEC__vecs_tsource\n"
+    s+="peram_sources=ALL\n"
+    s+="EvecFileBase=/p/gpfs1/culver5/su4_spectroscopy/4flavor___FERMION__/__VOL__/__BETA__/evecs_perams/cfg___CFG__/LapH_128vecs_\n"
+    s+="NDIAGS="+ndiags+"\n"
+    s+="mom=0 0 0\n"
+    s+="gammas="
+    for i,g in enumerate(gammas):
+        s+="GAMMAS/baryon_uuuu_{}_{}.txt".format(g[0],g[1])
+        if i<len(gammas)-1:
+            s+=","
+    s+="\n"
+    s+="dts=ALL\n"
+    s+="ts=ALL\n"
+
+    fileName = os.path.join("Output","run_base.in")
+    file=open(fileName,"w")
+    file.write(s)
+    file.close()
+
 def cppArrayPrint(lst):
     return str(lst).replace('[','{').replace(']','}')
 

@@ -24,12 +24,30 @@ def create_input_file(ndiags, gammas):
     file.write(s)
     file.close()
 
+
+def create_diagram_names_file(laphDiagrams):
+    s=""
+    for d in laphDiagrams:
+        for elem in d.commuting:
+            s+=elem.id()
+        s+="\n"
+    
+    fileName=os.path.join("Output","diagram_names.txt")
+    file=open(fileName,"w")
+    file.write(s)
+    file.close()
+
+
+
 def cppArrayPrint(lst):
     return str(lst).replace('[','{').replace(']','}')
 
 
-def create_diagram_gpu_file(laphDiagrams, allBaryonTensors, allBaryonTensorsBack, allBaryonSinks, allBaryonProps):
+def create_diagram_gpu_file(laphDiagrams, allBaryonTensors, allBaryonSinks, allBaryonProps):
+    allBaryonTensorsBack={v: k for k,v in allBaryonTensors.items()}
+
     s=cpp_file_header()
+
     for d in laphDiagrams:
         for blocks,contraction in diagram_as_graph(d,allBaryonTensors).items():
             blocks=blocks.split(',')

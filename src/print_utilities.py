@@ -29,7 +29,7 @@ def create_diagram_names_file(laphDiagrams):
     s=""
     for d in laphDiagrams:
         for elem in d.commuting:
-            s+=elem.id()
+            s+=str(elem)
         s+="\n"
     
     fileName=os.path.join("Output","diagram_names.txt")

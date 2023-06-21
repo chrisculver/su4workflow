@@ -28,8 +28,7 @@ def create_input_file(ndiags, gammas):
 def create_diagram_names_file(laphDiagrams):
     s=""
     for d in laphDiagrams:
-        for elem in d.commuting:
-            s+=str(elem)
+        s+=d.name()
         s+="\n"
     
     fileName=os.path.join("Output","diagram_names.txt")

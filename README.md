@@ -1,6 +1,6 @@
 # README
 
-This repository is a workflow manager for an SU(4) baryon-baryon scattering project.  This program takes as input a list of operators, performs the wick contractions, and outputs a list of diagrams.   
+This repository is a workflow manager for an SU(4) baryon-baryon scattering project.  Currently the project is working on Baryon correlation functions.  While this code and it's dependencies should work for BB scattering, it may not be optimized for it.
 
 The best place to get started is to look at the *uuuu_baryon* ipython notebook, which includes notes and an example running through all of the code from start to end.  Before doing this you need to install the [WickContractions library](github.com/chrisculver/WickContractions).
 

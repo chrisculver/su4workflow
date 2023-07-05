@@ -10,11 +10,9 @@ Evaluation of the diagrams is performed by the *baryons* branch of [lapH_build_a
 
 ## TODO
 
-* Interface with operator construction library
 * Better integration with [ContractionOptimizer](https://github.com/laphnn/contraction_optimizer)
-* Store wick contraction results in a database instead of computing them
-* Correlation matrix management (should probably just copy [CMM](github.com/chrisculver/CorrelationMatrixManager) for mesons
-* Operator Management
+* Could make input read from file(s) aka an Options/Configuration class
+* Interface with operator construction library
     * Isospin combinations 
     * Momentum (just replace x with p?)
     * Displacements?

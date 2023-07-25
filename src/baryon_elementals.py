@@ -1,7 +1,7 @@
-from WickContractions.ops.operator import *
-from WickContractions.ops.elemental import *
-from WickContractions.ops.quarks import *
-from WickContractions.ops.commuting import *
+from WickContractions.ops.operator import Operator
+from WickContractions.ops.elemental import ElementalOperator
+from WickContractions.ops.quarks import Quark
+from WickContractions.ops.commuting import EpsilonTensor,SpinMatrix
 
 cIdx = lambda c : 'c_{' + str(c) + '}'
 sIdx = lambda s : 's_{' + str(s) + '}'
@@ -18,7 +18,21 @@ def quark(anti, f, t, x):
     nextColorIdx+=1
     return q
 
-def baryonSource(coef, flavors, x, gammaName):
+def baryonSource(terms, x, gammaName):
+    elementals=[]
+    for flavors,coef in terms.items():
+        fs = [f for f in flavors]
+        elementals.append(baryonSourceElemental(coef, fs, x, gammaName))
+    return Operator(elementals)
+
+def baryonSink(terms, x, gammaName):
+    elementals=[]
+    for flavors,coef in terms.items():
+        fs = [f for f in flavors]
+        elementals.append(baryonSinkElemental(coef, fs, x, gammaName))
+    return Operator(elementals)
+
+def baryonSourceElemental(coef, flavors, x, gammaName):
     eTensor = epsilonTensor(nextColorIdx)
     sTensor = spinTensor(gammaName, nextSpinIdx)
 
@@ -32,7 +46,7 @@ def baryonSource(coef, flavors, x, gammaName):
         [q0,q1,q2,q3]
     )
 
-def baryonSink(coef, flavors, x, gammaName):
+def baryonSinkElemental(coef, flavors, x, gammaName):
     eTensor = epsilonTensor(nextColorIdx)
     sTensor = spinTensor(gammaName, nextSpinIdx)
 

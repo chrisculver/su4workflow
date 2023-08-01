@@ -32,6 +32,8 @@ def baryonSink(terms, x, gammaName):
         elementals.append(baryonSinkElemental(coef, fs, x, gammaName))
     return Operator(elementals)
 
+
+
 def baryonSourceElemental(coef, flavors, x, gammaName):
     eTensor = epsilonTensor(nextColorIdx)
     sTensor = spinTensor(gammaName, nextSpinIdx)
@@ -60,8 +62,30 @@ def baryonSinkElemental(coef, flavors, x, gammaName):
         [q0,q1,q2,q3]
     )
 
+def BBsource(b1terms, b2terms, x1, x2, g1, g2):
+    elementals=[]
+    for flavors1,c1 in b1terms.items():
+        for flavors2,c2 in b2terms.items():
+            f1s = [f for f in flavors1]
+            f2s = [f for f in flavors2]
 
-def BBsource(coef, f0, f1, x0, x1, g1, g2):
+            elementals.append(BBsourceElemental(c1*c2, f1s, f2s, x1, x2, g1, g2))
+
+    return Operator(elementals)
+
+def BBsink(b1terms, b2terms, x1, x2, g1, g2):
+    elementals=[]
+    for flavors1,c1 in b1terms.items():
+        for flavors2,c2 in b2terms.items():
+            f1s = [f for f in flavors1]
+            f2s = [f for f in flavors2]
+
+            elementals.append(BBsinkElemental(c1*c2, f1s, f2s, x1, x2, g1, g2))
+
+    return Operator(elementals)
+
+
+def BBsourceElemental(coef, f0, f1, x0, x1, g1, g2):
 
     eTensor1 = epsilonTensor(nextColorIdx)
     sTensor1 = spinTensor(g1, nextSpinIdx)
@@ -85,7 +109,7 @@ def BBsource(coef, f0, f1, x0, x1, g1, g2):
         [q0,q1,q2,q3,q4,q5,q6,q7]
     )
 
-def BBsink(coef, f0, f1, x0, x1, g1, g2):
+def BBsinkElemental(coef, f0, f1, x0, x1, g1, g2):
 
     eTensor1 = epsilonTensor(nextColorIdx)
     sTensor1 = spinTensor(g1, nextSpinIdx)
@@ -98,7 +122,6 @@ def BBsink(coef, f0, f1, x0, x1, g1, g2):
 
     eTensor2 = epsilonTensor(nextColorIdx)
     sTensor2 = spinTensor( g2, nextSpinIdx)
-    nextGammaIdx+=1
 
     q4 = quark(False, f1[0], 't_f', x1)
     q5 = quark(False, f1[1], 't_f', x1)
